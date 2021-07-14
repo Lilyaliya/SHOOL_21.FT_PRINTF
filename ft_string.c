@@ -2,16 +2,21 @@
 
 void	ft_precision(char *str, t_flags *flag, int *precision, int *width)
 {
-	*precision = flag->has_precision;
+	*precision = ft_strlen(str);
 	if (flag->has_precision > (int)ft_strlen(str))
 		*precision = ft_strlen(str);
 	else if (flag->has_precision < (int)ft_strlen(str) && flag->has_dot)
 		*precision = flag->has_precision;
-	if (flag->has_precision < 0)
+	if (flag->has_precision < 0 || flag->has_width < 0)
 	{
 		flag->has_minus = 1;
-		flag->has_precision *= (-1);
-		*precision *= (-1);
+		if (flag->has_precision < 0)
+		{
+			flag->has_precision = 0;
+			*precision = ft_strlen(str);
+		}
+		if (flag->has_width < 0)
+			flag->has_width *= (-1);
 	}
 	if (flag->has_width > *precision)
 		*width = flag->has_width;
@@ -19,7 +24,6 @@ void	ft_precision(char *str, t_flags *flag, int *precision, int *width)
 		*width = *precision;
 	if (*width < 0)
 		*width *= (-1);
-	return ;
 }
 
 int	ft_print_str(t_flags *flag, char *str, int precision, int width)
@@ -57,9 +61,7 @@ int	ft_printf_s(va_list args, t_flags *flag)
 	str = va_arg(args, char *);
 	length = 0;
 	if (str == NULL)
-	{
 		str = "(null)";
-	}
 	ft_precision(str, flag, &precision, &width);
 	length = ft_print_str(flag, str, precision, width);
 	return (length);

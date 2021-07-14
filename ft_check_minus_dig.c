@@ -76,27 +76,3 @@ int	ft_minus_n(t_flags *flag, long long num, int precision, int width)
 		length += write(1, &flag->chr, 1);
 	return (length);
 }
-
-int	ft_min(unsigned long addr, t_flags *flag, int precision, int width)
-{
-	int	length;
-
-	length = 0;
-	if (flag->has_zero && !flag->has_dot)
-	{
-		flag->chr = '0';
-		length += write(1, "0x", 2);
-	}
-	while (width-- > (precision + 2))
-		length += write(1, &flag->chr, 1);
-	if (flag->chr == ' ')
-		length += write(1, "0x", 2);
-	while (precision-- > ft_count_hex(addr))
-		length += write(1, "0", 1);
-	if (!flag->has_dot)
-		ft_putnbr_hex(addr);
-	else if (addr)
-		ft_putnbr_hex(addr);
-	length += ft_count_hex(addr);
-	return (length);
-}

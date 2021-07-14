@@ -12,7 +12,7 @@ int	ft_not_minus_ui(unsigned int num, t_flags *flag,
 			flag->chr = '0';
 		length += write(1, &flag->chr, 1);
 	}
-	while (width-- > ft_count(num))
+	while (precision-- > ft_count(num))
 		length += write(1, "0", 1);
 	if (num == 0 && flag->has_dot && !flag->has_precision)
 		length += write(1, " ", 1);

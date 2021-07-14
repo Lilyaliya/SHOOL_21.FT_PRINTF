@@ -5,14 +5,12 @@ int	ft_count_hex(unsigned long num)
 	int	i;
 
 	i = 0;
-	if (num == 0)
-		i = 1;
-	while (num != 0)
+	while (num > 15)
 	{
 		i++;
 		num /= 16;
 	}
-	return (i);
+	return (i + 1);
 }
 
 void	ft_putnbr_hex_Xx(unsigned long addr, t_flags *flag)
@@ -66,31 +64,6 @@ void 	ft_putnbr_fd(long long n, int fd)
 		n = n % nb;
 		nb /= 10;
 	}
-}
-
-void	ft_putnbr_hex(unsigned long addr)
-{
-	unsigned long	num;
-	unsigned long	rank;
-	unsigned long	index;
-	char			*alph;
-
-	num = addr;
-	rank = 1;
-	alph = "0123456789abcdef";
-	while (num > 15)
-	{
-		num /= 16;
-		rank *= 16;
-	}
-	while (rank > 1)
-	{
-		index = addr / rank;
-		write(1, &alph[index], 1);
-		addr %= rank;
-		rank /= 16;
-	}
-	write(1, &alph[addr], 1);
 }
 
 int	ft_strchr(const char *s, int c)

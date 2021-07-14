@@ -14,7 +14,7 @@ int	ft_not_minus_hex(unsigned int num, t_flags *flag,
 	}
 	while (precision-- > ft_count_hex(num))
 		length += write(1, "0", 1);
-	if (!num && flag->has_dot && flag->has_precision)
+	if (num == 0 && flag->has_dot && !flag->has_precision)
 		length += write(1, " ", 1);
 	else
 	{
